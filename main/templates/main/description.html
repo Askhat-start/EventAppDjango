@@ -1,0 +1,99 @@
+{% extends 'main/main.html'%}
+{% load static %}
+{% block content %}
+
+<div class="row g-5" style="margin-left: 5%; margin-top: 1%" xmlns="http://www.w3.org/1999/html">
+    <div class="col-md-8">
+
+      <article class="blog-post">
+        <h1><strong>{{event.title}}</strong></h1>
+        <img src="{{event.photo.url}}" width="1000px" style="margin-top:2%;">
+
+        <hr>
+        <h2>Описание</h2>
+        <p style="font-size: 20px;">{{event.description}}</p>
+        <br>
+        <h3>Количество доступных мест: {{event.available_seats}}</h3>
+        {% if user.is_authenticated%}
+          {% if already_take_part%}
+            <h4>Вы уже участвуете в данном мероприятии, <a href="{% url 'booking:my_events' %}">Управлять моими мероприятиями</a></h4>
+          {% else %}
+            <h4><a href="{% url 'main:take_part' event.id %}">Зарегистрироваться на мероприятие</a></h4>
+          {% endif %}
+        {% else %}
+          <h4>Для участия на мероприятие <a href="{% url 'user_auth:user_login'%}">Войдите</a>
+            или <a href="{% url 'user_auth:register'%}">Зарегистрируйтесь</a></h4>
+        {% endif %}
+      </article>
+
+    </div>
+
+    <div class="col-md-4">
+      <div class="position-sticky" style="top: 2rem;">
+        <div>
+          <h2 class="fst-italic">Информация о событии</h2>
+          <ul class="list-unstyled">
+            <li>
+              <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
+                <div class="col-lg-8">
+                  <h4 class="mb-0">Время: {{event.event_time}}</h4>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
+                <div class="col-lg-8">
+                  <h4 class="mb-0">Дата: {{event.event_date}}</h4>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
+                <div class="col-lg-8">
+                  <h4 class="mb-0">Город: {{event.city}}</h4>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
+                <div class="col-lg-8">
+                  <h4 class="mb-0">Место проведение: {{event.location}}</h4>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
+                <div class="col-lg-8">
+                  <h4 class="mb-0">Длительность: {{event.duration}} часа</h4>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
+                <div class="col-lg-8">
+                  <h4 class="mb-0">Количество доступных мест: {{event.available_seats}}</h4>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
+                <div class="col-lg-8">
+                  <h4 class="mb-0">Организаторы: {{event.organizer}}</h4>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
+                <div class="col-lg-8">
+                  <h4 class="mb-0">Тип мероприятия: {{event.event_type}}</h4>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+  {% endblock %}

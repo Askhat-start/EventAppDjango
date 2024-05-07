@@ -1,0 +1,30 @@
+{% extends 'main/main.html'%}
+{% load static %}
+{%block content%}
+
+<div class="col-md-4" style="margin-top: 5%; margin-left: 10%;">
+    {% if new_event is not None %}
+      <h3>Вы успешно добавлены на мероприятие "{{new_event.title}}"</h3>
+    {% endif %}
+    {% if deleted_event is not None %}
+        <h3>Вы успешно покинули мероприятие {{deleted_event.title}}</h3>
+    {% endif %}
+    <h2>Мои мероприятия</h2>
+      <div class="position-sticky" style="top: 2rem;">
+        <div>
+          <ul class="list-unstyled">
+            {% for my_event in my_events_list %}
+
+              <li><a href="{% url 'main:event_description' my_event.event.id%}">{{my_event.event.title}}</a></li>
+              <li>Время: {{my_event.event.event_time}}, {{my_event.event.event_date}}</li>
+              <li>Место проведения: {{my_event.event.city}}, {{my_event.event.location}}</li>
+              <li><a href="{% url 'booking:delete_book' my_event.event.id%}">Отменить бронирование</a></li>
+
+            {% endfor %}
+          </ul>
+        </div>
+
+
+      </div>
+    </div>
+{%endblock%}
